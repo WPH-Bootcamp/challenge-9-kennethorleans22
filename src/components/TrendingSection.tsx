@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
 import type { Movie } from '@/types/movie';
 import MovieCard from '@/components/MovieCard';
+import { Button } from '@/components/ui/button';
 
 interface TrendingSectionProps {
   movies: Movie[];
@@ -52,34 +53,36 @@ export default function TrendingSection({ movies }: TrendingSectionProps) {
           ))}
         </div>
 
-        {/* Gradient kiri — muncul setelah scroll kanan */}
+        {/* Gradient kiri */}
         {canScrollLeft && (
           <div className="absolute left-0 top-0 h-full w-24 md:w-[180px] bg-gradient-to-r from-black to-transparent pointer-events-none z-10" />
         )}
 
-        {/* Gradient kanan — selama masih ada konten */}
-   {canScrollRight && (
-  <div className="absolute right-0 top-0 h-full w-32 md:w-[260px] bg-gradient-to-l from-black via-black/80 to-transparent pointer-events-none z-10" />
-)}
+        {/* Gradient kanan */}
+        {canScrollRight && (
+          <div className="absolute right-0 top-0 h-full w-32 md:w-[260px] bg-gradient-to-l from-black via-black/80 to-transparent pointer-events-none z-10" />
+        )}
 
         {/* Tombol kiri */}
         {canScrollLeft && (
-          <button
+          <Button
             onClick={handlePrev}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-11 h-11 md:w-14 md:h-14 flex items-center justify-center bg-[rgba(10,13,18,0.6)] backdrop-blur-[20px] rounded-full"
+            size="icon"
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-11 h-11 md:w-14 md:h-14 bg-[rgba(10,13,18,0.6)] backdrop-blur-[20px] rounded-full hover:bg-[rgba(10,13,18,0.8)]"
           >
             <ChevronLeft className="w-5 h-5 md:w-7 md:h-7 text-[#FDFDFD]" />
-          </button>
+          </Button>
         )}
 
         {/* Tombol kanan */}
         {canScrollRight && (
-          <button
+          <Button
             onClick={handleNext}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-11 h-11 md:w-14 md:h-14 flex items-center justify-center bg-[rgba(10,13,18,0.6)] backdrop-blur-[20px] rounded-full"
+            size="icon"
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-11 h-11 md:w-14 md:h-14 bg-[rgba(10,13,18,0.6)] backdrop-blur-[20px] rounded-full hover:bg-[rgba(10,13,18,0.8)]"
           >
             <ChevronRight className="w-5 h-5 md:w-7 md:h-7 text-[#FDFDFD]" />
-          </button>
+          </Button>
         )}
       </div>
     </section>

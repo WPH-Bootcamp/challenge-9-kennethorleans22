@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import type { Movie } from '@/types/movie';
 import { getImageUrl } from '@/lib/utils';
 import { Star } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Card } from '@/components/ui/card';
 
 interface MovieCardProps {
   movie: Movie;
@@ -12,8 +14,8 @@ export default function MovieCard({ movie, rank }: MovieCardProps) {
   const navigate = useNavigate();
 
   return (
-    <div
-      className="flex flex-col gap-2 md:gap-3 cursor-pointer shrink-0"
+    <Card
+      className="flex flex-col gap-2 md:gap-3 cursor-pointer shrink-0 border-0 bg-transparent shadow-none p-0 rounded-none"
       onClick={() => navigate(`/movie/${movie.id}`)}
     >
       {/* Poster */}
@@ -26,11 +28,11 @@ export default function MovieCard({ movie, rank }: MovieCardProps) {
 
         {/* Badge nomor */}
         {rank !== undefined && (
-          <div className="absolute left-2 top-2 md:left-3 md:top-3 w-8 h-8 md:w-12 md:h-12 flex items-center justify-center bg-almost-black/60 backdrop-blur-[17px] rounded-full">
-            <span className="text-[#FDFDFD] font-semibold text-sm md:text-lg leading-none">
-              {rank}
-            </span>
-          </div>
+          <Badge
+            className="absolute left-2 top-2 md:left-3 md:top-3 w-8 h-8 md:w-12 md:h-12 p-0 flex items-center justify-center bg-almost-black/60 backdrop-blur-[17px] rounded-full border-0 text-[#FDFDFD] font-semibold text-sm md:text-lg"
+          >
+            {rank}
+          </Badge>
         )}
       </div>
 
@@ -46,6 +48,6 @@ export default function MovieCard({ movie, rank }: MovieCardProps) {
           </span>
         </div>
       </div>
-    </div>
+    </Card>
   );
 }
