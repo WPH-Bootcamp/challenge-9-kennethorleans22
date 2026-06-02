@@ -43,13 +43,15 @@ export default function TrendingSection({ movies }: TrendingSectionProps) {
       </h2>
 
       <div className="relative overflow-hidden">
-        {/* Kartu-kartu film */}
         <div
           ref={scrollRef}
           className="flex flex-row gap-4 md:gap-5 overflow-x-auto scrollbar-none"
         >
           {movies.map((movie, index) => (
-            <MovieCard key={movie.id} movie={movie} rank={index + 1} />
+            // Wrapper dengan fixed width — MovieCard di dalamnya pakai w-full
+            <div key={movie.id} className="shrink-0 w-[173px] md:w-[216px]">
+              <MovieCard movie={movie} rank={index + 1} />
+            </div>
           ))}
         </div>
 

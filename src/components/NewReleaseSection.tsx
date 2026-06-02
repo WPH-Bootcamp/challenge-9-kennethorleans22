@@ -27,7 +27,7 @@ export default function NewReleaseSection({ movies }: NewReleaseSectionProps) {
       </h2>
 
       <div className="relative">
-        {/* Grid kartu */}
+        {/* Grid kartu — MovieCard sekarang w-full, jadi simetris */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-5">
           {visibleMovies.map((movie) => (
             <MovieCard key={movie.id} movie={movie} />
@@ -39,10 +39,10 @@ export default function NewReleaseSection({ movies }: NewReleaseSectionProps) {
           <>
             <div className="absolute bottom-0 left-0 right-0 h-[220px] bg-gradient-to-t from-black via-black/70 to-transparent pointer-events-none" />
             <div className="absolute bottom-8 left-0 right-0 flex justify-center z-10">
+              {/* Sesuai Figma: background gelap, border, blur, rounded-full */}
               <Button
-                variant="ghost"
                 onClick={handleLoadMore}
-                className="text-[#FDFDFD] font-semibold text-base md:text-lg hover:bg-transparent hover:text-[#FDFDFD]/80"
+                className="w-[230px] h-[52px] bg-[rgba(10,13,18,0.6)] border border-[#181D27] backdrop-blur-[20px] rounded-full text-[#FDFDFD] font-semibold text-base hover:bg-[rgba(10,13,18,0.8)] hover:text-[#FDFDFD]"
               >
                 Load More
               </Button>

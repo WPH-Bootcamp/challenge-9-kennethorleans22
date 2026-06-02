@@ -1,30 +1,23 @@
 import './index.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 import HomePage from '@/pages/HomePage';
-
-// TODO: Setup routing dengan React Router
-// TODO: Implement layout structure
-// TODO: Add navigation between pages
-
-
-
-// TODO: Setup routing dengan React Router
-// TODO: Implement layout structure
-// TODO: Add navigation between pages
+import MovieDetailPage from '@/pages/MovieDetailPage';
+import FavoritesPage from '@/pages/FavoritesPage';
 
 function App() {
   return (
     <BrowserRouter>
-      {/* TODO: Add navigation menu */}
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/movie/:id" element={<div>Detail Page — coming soon</div>} />
-        <Route path="/favorites" element={<div>Favorites Page — coming soon</div>} />
+        <Route path="/movie/:id" element={<MovieDetailPage />} />
+        <Route path="/favorites" element={<FavoritesPage />} />
         <Route path="/search" element={<div>Search Page — coming soon</div>} />
         <Route path="*" element={<div>404 - Halaman tidak ditemukan</div>} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

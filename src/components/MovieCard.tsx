@@ -15,11 +15,11 @@ export default function MovieCard({ movie, rank }: MovieCardProps) {
 
   return (
     <Card
-      className="flex flex-col gap-2 md:gap-3 cursor-pointer shrink-0 border-0 bg-transparent shadow-none p-0 rounded-none"
+      className="flex flex-col gap-2 md:gap-3 cursor-pointer w-full border-0 bg-transparent shadow-none p-0 rounded-none"
       onClick={() => navigate(`/movie/${movie.id}`)}
     >
       {/* Poster */}
-      <div className="relative w-[173px] h-[266px] md:w-[216px] md:h-[321px]">
+      <div className="relative w-full h-[266px] md:h-[321px]">
         <img
           src={getImageUrl(movie.poster_path, 'w342')}
           alt={movie.title}
@@ -37,7 +37,7 @@ export default function MovieCard({ movie, rank }: MovieCardProps) {
       </div>
 
       {/* Info */}
-      <div className="flex flex-col gap-0.5 w-[173px] md:w-[216px]">
+      <div className="flex flex-col gap-0.5 w-full">
         <h3 className="text-[#FDFDFD] font-semibold text-base md:text-lg leading-[30px] md:leading-[32px] truncate">
           {movie.title}
         </h3>
