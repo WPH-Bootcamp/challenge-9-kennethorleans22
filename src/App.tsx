@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import HomePage from '@/pages/HomePage';
 import MovieDetailPage from '@/pages/MovieDetailPage';
 import FavoritesPage from '@/pages/FavoritesPage';
+import SearchPage from '@/pages/SearchPage';
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/movie/:id" element={<MovieDetailPage />} />
         <Route path="/favorites" element={<FavoritesPage />} />
-        <Route path="/search" element={<div>Search Page — coming soon</div>} />
+        <Route path="/search" element={<SearchPage />} />
         <Route path="*" element={<div>404 - Halaman tidak ditemukan</div>} />
       </Routes>
       <Footer />

@@ -6,41 +6,66 @@ import bxs_tv from '@/assets/bxs_tv.svg';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
+function DesktopSearchForm({
+  defaultValue,
+  onSearch,
+  onClear,
+}: {
+  defaultValue: string;
+  onSearch: (query: string) => void;
+  onClear: () => void;
+}) {
+  const [value, setValue] = useState(defaultValue);
+
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (value.trim()) onSearch(value.trim());
+      }}
+      className="hidden md:flex items-center gap-2 px-4 h-14 w-[243px] bg-[rgba(10,13,18,0.6)] border border-[#252B37] backdrop-blur-[20px] rounded-2xl"
+    >
+      <Search className="w-6 h-6 text-[#717680] shrink-0" />
+      <Input
+        type="text"
+        placeholder="Search Movie"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        className="bg-transparent text-[#717680] placeholder:text-[#717680] text-base border-0 h-auto p-0 focus-visible:ring-0 focus-visible:ring-offset-0 w-full"
+      />
+      {value && (
+        <button
+          type="button"
+          onClick={() => {
+            setValue('');
+            onClear();
+          }}
+          className="shrink-0 w-5 h-5 rounded-full bg-[#414651] flex items-center justify-center"
+        >
+          <X className="w-3 h-3 text-white" />
+        </button>
+      )}
+    </form>
+  );
+}
+
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
-  const location = useLocation(); 
+  const location = useLocation();
+
+  // Derive langsung dari URL — tidak perlu state
+  const urlQuery =
+    location.pathname === '/search'
+      ? (new URLSearchParams(location.search).get('q') ?? '')
+      : '';
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 0);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // ← Sync search query dari URL ketika di halaman /search
-  useEffect(() => {
-    if (location.pathname === '/search') {
-      const params = new URLSearchParams(location.search);
-      setSearchQuery(params.get('q') ?? '');
-    } else {
-      setSearchQuery('');
-    }
-  }, [location.pathname, location.search]);
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
-    }
-  };
-
-  // ← Handler clear search (X button)
-  const handleClearSearch = () => {
-    setSearchQuery('');
-    navigate('/search');
-  };
 
   return (
     <>
@@ -66,30 +91,13 @@ export default function Navbar() {
           </nav>
         </div>
 
-        {/* Desktop search form */}
-        <form
-          onSubmit={handleSearch}
-          className="hidden md:flex items-center gap-2 px-4 h-14 w-[243px] bg-[rgba(10,13,18,0.6)] border border-[#252B37] backdrop-blur-[20px] rounded-2xl"
-        >
-          <Search className="w-6 h-6 text-[#717680] shrink-0" />
-          <Input
-            type="text"
-            placeholder="Search Movie"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-transparent text-[#717680] placeholder:text-[#717680] text-base border-0 h-auto p-0 focus-visible:ring-0 focus-visible:ring-offset-0 w-full"
-          />
-          {/* ← Close button (muncul saat ada query) */}
-          {searchQuery && (
-            <button
-              type="button"
-              onClick={handleClearSearch}
-              className="shrink-0 w-5 h-5 rounded-full bg-[#414651] flex items-center justify-center"
-            >
-              <X className="w-3 h-3 text-white" />
-            </button>
-          )}
-        </form>
+        {/* key={urlQuery}  */}
+        <DesktopSearchForm
+          key={urlQuery}
+          defaultValue={urlQuery}
+          onSearch={(q) => navigate(`/search?q=${encodeURIComponent(q)}`)}
+          onClear={() => navigate('/search')}
+        />
 
         {/* Mobile: Search + Hamburger */}
         <div className="flex md:hidden items-center gap-6">

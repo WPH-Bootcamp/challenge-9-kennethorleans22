@@ -12,6 +12,7 @@ import type { Movie } from '@/types/movie';
 import play_button from '@/assets/play_button.svg';
 import heart from '@/assets/heart.svg';
 import heart_filled from '@/assets/heart_filled.svg';
+import not_found from '@/assets/not_found.svg';
 
 // ── Zod schema ──────────────────────────────────────────────
 const searchSchema = z.object({
@@ -117,6 +118,34 @@ function SearchResultItem({ movie }: { movie: Movie }) {
   );
 }
 
+// ── NotFoundState (local component) ─────────────────────────
+function NotFoundState() {
+  return (
+    <div className="flex flex-col items-center py-16 md:py-24">
+      <div className="flex flex-col items-center gap-4 w-[200px]">
+        {/* Illustration */}
+        <div className="w-[200px] h-[200px] flex items-center justify-center">
+          <img
+            src={not_found}
+            alt="Not Found"
+            className="w-[154px] h-[170px] object-contain opacity-50 mix-blend-luminosity"
+          />
+        </div>
+
+        {/* Text */}
+        <div className="flex flex-col items-center gap-2">
+          <p className="font-semibold text-base leading-[30px] text-white text-center">
+            Data Not Found
+          </p>
+          <p className="text-sm leading-[28px] text-[#A4A7AE] text-center">
+            Try other keywords
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── SearchPage ───────────────────────────────────────────────
 export default function SearchPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -217,6 +246,9 @@ export default function SearchPage() {
             ))}
           </div>
         )}
+
+        {/* Empty state — query ada tapi tidak ada hasil */}
+        {!isLoading && query && results.length === 0 && <NotFoundState />}
 
       </div>
     </div>
